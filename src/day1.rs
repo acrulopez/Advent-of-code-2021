@@ -10,11 +10,12 @@ where
     Ok(io::BufReader::new(file).lines())
 }
 
-fn part_one(input: &str) -> u32 {
-    let input = &format!("./inputs/day1-{}.txt", input);
-    let mut lines =
-        read_lines(input).unwrap_or_else(|_| panic!("File '{input}' should be accesible"));
+fn get_file_lines_iterator(day: &str, input: &str) -> io::Lines<io::BufReader<File>> {
+    let input = &format!("./inputs/{}-{}.txt", day, input);
+    read_lines(input).unwrap_or_else(|_| panic!("File '{input}' should be accesible"))
+}
 
+fn part_one(mut lines: io::Lines<io::BufReader<File>>) -> u32 {
     let mut increment_count: u32 = 0;
     let mut last_value: u32 = lines.next().unwrap().unwrap().parse::<u32>().unwrap();
     for number in lines {
@@ -29,11 +30,7 @@ fn part_one(input: &str) -> u32 {
     increment_count
 }
 
-fn part_two(input: &str) -> u32 {
-    let input = &format!("./inputs/day1-{}.txt", input);
-    let mut lines =
-        read_lines(input).unwrap_or_else(|_| panic!("File '{input}' should be accesible"));
-
+fn part_two(mut lines: io::Lines<io::BufReader<File>>) -> u32 {
     let mut idx = 0;
     let mut last_three_values = lines
         .by_ref()
@@ -54,10 +51,11 @@ fn part_two(input: &str) -> u32 {
     increment_count
 }
 
-pub fn main(input: &str, part: &str) -> u32 {
+pub fn main(day: &str, part: &str, input: &str) -> u32 {
+    let lines = get_file_lines_iterator(day, input);
     match part {
-        "part1" => part_one(input),
-        "part2" => part_two(input),
+        "part1" => part_one(lines),
+        "part2" => part_two(lines),
         _ => panic!(""),
     }
 }

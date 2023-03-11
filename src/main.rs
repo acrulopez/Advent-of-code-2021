@@ -1,17 +1,37 @@
 mod day1;
+mod day2;
+use std::time::Instant;
 
 fn main() {
-    let args: Vec<String> = std::env::args().collect();
+    let mut args = std::env::args();
+    args.next();
+    let (day, part, input) = (
+        args.next().unwrap(),
+        args.next().unwrap(),
+        args.next().unwrap(),
+    );
 
-    if args.len() < 4
-        || (args[2] != "example" && args[2] != "input" || args[3] != "part1" && args[3] != "part2")
+    if !day.starts_with("day")
+        || part != "part1" && part != "part2"
+        || input != "example" && input != "input"
     {
         panic!(
-            "Usage 'cargo run day{{X}} {{inputFile}} {{part}}'. Input 
-        file should be either 'example' or 'input'. Part should be 'part1' or 'part2'"
-        )
-    };
+            "Usage 'cargo run day{{X}} {{part}} {{inputFile}} '. \n 
+            Day: {day} \n
+            Part: {part} \n
+            Input: {input} \n"
+        );
+    }
 
-    let result = day1::main(&args[2], &args[3]);
+    let start = Instant::now();
+
+    let result = match day.as_str() {
+        "day1" => day1::main(&day, &part, &input),
+        "day2" => day2::main(&day, &part, &input),
+        _ => panic!(""),
+    };
+    let end = Instant::now();
+
     println!("Result: {}", result);
+    println!("Time taken: {:?}", end - start);
 }
