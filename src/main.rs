@@ -1,5 +1,6 @@
 mod day1;
 mod day2;
+mod day3;
 use std::time::Instant;
 
 fn main() {
@@ -28,6 +29,7 @@ fn main() {
     let result = match day.as_str() {
         "day1" => day1::main(&day, &part, &input),
         "day2" => day2::main(&day, &part, &input),
+        "day3" => day3::main(&day, &part, &input),
         _ => panic!(""),
     };
     let end = Instant::now();
