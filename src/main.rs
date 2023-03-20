@@ -1,6 +1,7 @@
 mod day1;
 mod day2;
 mod day3;
+mod day4;
 use std::time::Instant;
 
 fn main() {
@@ -30,6 +31,7 @@ fn main() {
         "day1" => day1::main(&day, &part, &input),
         "day2" => day2::main(&day, &part, &input),
         "day3" => day3::main(&day, &part, &input),
+        "day4" => day4::main(&day, &part, &input),
         _ => panic!(""),
     };
     let end = Instant::now();
